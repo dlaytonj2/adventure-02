@@ -5,9 +5,7 @@ A text-based adventure set on an abandoned alien starship orbiting a desolate pl
 Objective: Find escape pods to get off the ship by collecting items and solving puzzles.
 """
 
-import random
-import json
-from typing import Dict, List, Optional, Set
+from typing import Optional
 
 class Item:
     def __init__(self, name: str, description: str, usable: bool = False):
