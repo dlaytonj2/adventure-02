@@ -386,6 +386,23 @@ class AlienStarshipGame:
         else:
             print(f"You use the {item.name.replace('_', ' ')}, but nothing happens here.")
 
+    def examine_item(self, item_name: str):
+        """Examine an item either in the room or inventory"""
+        item_name = item_name.lower().replace(' ', '_')
+        room = self.player.current_room
+
+        for item in room.items:
+            if item.name.lower() == item_name:
+                print(f"{item.name.replace('_', ' ').title()}: {item.description}")
+                return
+
+        for item in self.player.inventory:
+            if item.name.lower() == item_name:
+                print(f"{item.name.replace('_', ' ').title()}: {item.description}")
+                return
+
+        print(f"There is no {item_name.replace('_', ' ')} here or in your inventory.")
+
     def show_inventory(self):
         """Display player inventory"""
         if not self.player.inventory:
@@ -402,6 +419,7 @@ Available commands:
   go <direction> - Move in a direction (north, south, east, west, up, down)
   take <item> - Pick up an item
   use <item> - Use an item from your inventory
+  examine <item> - Inspect an item in the room or your inventory
   inventory - Show your inventory
   look - Look around the current room
   help - Show this help message
@@ -487,7 +505,14 @@ Collect items to solve puzzles and unlock new areas.
                     else:
                         item_name = " ".join(parts[1:])
                         self.use_item(item_name)
-                
+
+                elif action in ["examine", "inspect", "x"]:
+                    if len(parts) < 2:
+                        print("Examine what?")
+                    else:
+                        item_name = " ".join(parts[1:])
+                        self.examine_item(item_name)
+
                 # Allow movement without "go"
                 elif action in ["north", "south", "east", "west", "up", "down", "n", "s", "e", "w", "u", "d"]:
                     direction_map = {"n": "north", "s": "south", "e": "east", "w": "west", "u": "up", "d": "down"}
