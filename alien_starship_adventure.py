@@ -411,6 +411,28 @@ Objective: Explore the abandoned alien starship and find escape pods to get off 
 Collect items to solve puzzles and unlock new areas.
         """)
 
+    def trigger_random_event(self):
+        """Occasionally trigger a small random event."""
+        roll = random.random()
+        room = self.player.current_room
+
+        # 5% chance to discover an additional item
+        if roll < 0.05:
+            bonus_items = ["energy_cell", "oxygen_canister", "medical_kit", "alien_crystal"]
+            item_name = random.choice(bonus_items)
+            item = self.items[item_name]
+            room.items.append(item)
+            print(f"\n*** You discover a hidden {item.name.replace('_', ' ')}! ***")
+
+        # Another 5% chance for a minor hazard
+        elif roll < 0.10:
+            print("\n*** A sudden burst of cold air startles you. You manage to stay safe. ***")
+            if self.player.inventory and random.random() < 0.5:
+                dropped = random.choice(self.player.inventory)
+                self.player.inventory.remove(dropped)
+                room.items.append(dropped)
+                print(f"You fumble and drop your {dropped.name.replace('_', ' ')}!")
+
     def game_loop(self):
         """Main game loop"""
         print("=== ALIEN STARSHIP ADVENTURE ===")
@@ -421,6 +443,7 @@ Collect items to solve puzzles and unlock new areas.
         self.display_room()
         
         while not self.game_over and not self.victory:
+            self.trigger_random_event()
             try:
                 command = input("\n> ").strip().lower()
                 
