@@ -6,6 +6,7 @@ Objective: Find escape pods to get off the ship by collecting items and solving 
 """
 
 from typing import Optional
+import random
 
 class Item:
     def __init__(self, name: str, description: str, usable: bool = False):
