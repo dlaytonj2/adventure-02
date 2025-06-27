@@ -278,12 +278,18 @@ class AlienStarshipGame:
                 self.rooms[room_name].lock_description = lock_desc
 
     def display_room(self):
-        """Display current room information"""
+        """Display current room information
+
+        Prints a full description the first time a room is visited and a
+        shorter reminder on subsequent visits.
+        """
         room = self.player.current_room
         print(f"\n=== {room.name.replace('_', ' ').title()} (Level {room.level}) ===")
-        print(room.description)
-        
-        if not room.visited:
+
+        if room.visited:
+            print(f"You are back in the {room.name.replace('_', ' ')}.")
+        else:
+            print(room.description)
             room.visited = True
         
         if room.items:
