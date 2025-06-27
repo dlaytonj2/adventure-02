@@ -183,7 +183,7 @@ class AlienStarshipGame:
             ("water_recycling", {"west": "waste_processing", "south": "engine_room_lower"}),
             ("emergency_stairwell_1", {"down": "docking_bay", "up": "emergency_stairwell_2"}),
             ("airlock_1", {"north": "power_distribution_1"}),
-            ("power_distribution_1", {"south": "airlock_1", "south": "maintenance_shaft_1"}),
+            ("power_distribution_1", {"south": "airlock_1", "west": "maintenance_shaft_1"}),
             
             # Level 2 connections
             ("emergency_stairwell_2", {"down": "emergency_stairwell_1", "up": "emergency_stairwell_3", "north": "corridor_2a"}),
